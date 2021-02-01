@@ -16,7 +16,7 @@ def compute(file, vertex = True):
     if vertex == True:
         S, s = algorithms.CutSmall2(Graph)  # small_cut + vertex reduction
     else:
-        S, s = PJ2.MIS_reduction5(Graph)  # small_cut reduction
+        S, s = algorithms.CutSmall1(Graph)  # small_cut reduction
     S = list(set(S))
     for i in S:
         for j in S:

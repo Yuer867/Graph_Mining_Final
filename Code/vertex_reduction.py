@@ -14,16 +14,17 @@ def compute(file, single = True):
     print(file)
     start_time = time.time()
     if single == True:
-        S, s = PJ2.MIS_reduction4(Graph)  # single vertex reduction
+        S, s = algorithms.DtSingle(Graph)  # single vertex reduction
     else:
         S, s = algorithms.DtTwo(Graph)  # single/two vertex reduction
     end_time = time.time()
     print('weights:', s)
     print(round(end_time - start_time, 2))
 
-dataset = ['GD98_c', 'USAir', 'email', 'netscience',
-           'yeast', 'power', 'geom', 'hep-th',
-           'cond-mat', 'vt2010', 'ca-GrQc', 'ca-HepTh']
+dataset = ['GD98_c', 'USAir', 'netscience',
+           'yeast', 'power', 'geom']
+''', 'hep-th',
+           'cond-mat', 'vt2010', 'ca-GrQc', 'ca-HepTh']'''
 for i in range(len(dataset)):
     print('single-vertex reduction')
     compute(dataset[i], single=True)
