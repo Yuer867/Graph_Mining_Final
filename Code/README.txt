@@ -1,4 +1,5 @@
-Instructions
+# Instructions
+
 run 'statistics.py' to compute statistics of graph data.
 run 'greedy.py' to compute MWIS by greedy algorithms without reduction rules.
 run ‘vertex_reduction.py’ to compute MWIS by greedy algorithms equipped with vertex reductions.
