@@ -293,12 +293,10 @@ def DtSingle(Graph):
             neighbors = nx.all_neighbors(G, node)
             s = 0
             for neighbor in neighbors:
-                s += nx.degree(G, neighbor)
-            #    s += G.nodes[neighbor]['weight']
-            # weight[node] = w / s
-            # weight[node] = w / nx.degree(G, node)
-            weight[node] = 1 / nx.degree(G, node)
-            # weight[node] = w/(s*d)
+                s += G.nodes[neighbor]['weight']
+            # weight[node] = w / s  # GWMAX2
+            # weight[node] = w / d  # GWMAX
+            weight[node] = 1 / d  # GMAX
 
         target = sorted(weight.items(), key=lambda x: x[1])[0][0]
         G.remove_node(target)
@@ -325,12 +323,10 @@ def DtTwo(Graph):
             neighbors = nx.all_neighbors(G, node)
             s = 0
             for neighbor in neighbors:
-                s += nx.degree(G, neighbor)
-            #    s += G.nodes[neighbor]['weight']
-            #weight[node] = w / s
-            #weight[node] = w / nx.degree(G, node)
-            weight[node] = 1 / nx.degree(G, node)
-            #weight[node] = w/(s*d)
+                s += G.nodes[neighbor]['weight']
+            # weight[node] = w / s  # GWMAX2
+            # weight[node] = w / d  # GWMAX
+            weight[node] = 1 / d  # GMAX
 
         target = sorted(weight.items(), key=lambda x: x[1])[0][0]
         G.remove_node(target)
@@ -410,12 +406,10 @@ def CutSmall1(Graph):
             neighbors = nx.all_neighbors(G, node)
             s = 0
             for neighbor in neighbors:
-                #    s += nx.degree(G, neighbor)
                 s += G.nodes[neighbor]['weight']
-            # weight[node] = w / s
-            # weight[node] = w / nx.degree(G, node)
-            weight[node] = 1 / nx.degree(G, node)
-            # weight[node] = w/(s*d)
+            # weight[node] = w / s  # GWMAX2
+            weight[node] = w / d  # GWMAX
+            # weight[node] = 1 / d  # GMAX
 
         target = sorted(weight.items(), key=lambda x: x[1])[0][0]
         G.remove_node(target)
@@ -453,12 +447,10 @@ def CutSmall2(Graph):
             neighbors = nx.all_neighbors(G, node)
             s = 0
             for neighbor in neighbors:
-                #    s += nx.degree(G, neighbor)
                 s += G.nodes[neighbor]['weight']
-            # weight[node] = w / s
-            # weight[node] = w / nx.degree(G, node)
-            weight[node] = 1 / nx.degree(G, node)
-            # weight[node] = w/(s*d)
+            # weight[node] = w / s  # GWMAX2
+            weight[node] = w / d  # GWMAX
+            # weight[node] = 1 / d  # GMAX
 
         target = sorted(weight.items(), key=lambda x: x[1])[0][0]
         G.remove_node(target)
@@ -617,7 +609,15 @@ def reduction(G, MIS, cut_dict):
             break
         weight = dict()
         for node in G.nodes():
-            weight[node] = 1 / (nx.degree(G, node) + 1)
+            w = G.nodes[node]['weight']
+            d = nx.degree(G, node)
+            neighbors = nx.all_neighbors(G, node)
+            s = 0
+            for neighbor in neighbors:
+                s += G.nodes[neighbor]['weight']
+            # weight[node] = w / s  # GWMAX2
+            weight[node] = w / (d+1)  # GWMAX
+            # weight[node] = 1 / (d+1)  # GMAX
         target = sorted(weight.items(), key=lambda x: x[1])[0][0]
         G.remove_node(target)
     return 0
